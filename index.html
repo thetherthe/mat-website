@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>About — Mu Alpha Theta SIS</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=DM+Mono:wght@300;400;500&family=DM+Sans:wght@300;400;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #0d0d0f; --paper: #f5f2eb; --gold: #c8a84b; --gold-light: #e8d08a;
+    --cobalt: #1a2a6e; --cobalt-mid: #2d4499; --cream: #faf8f2;
+    --muted: #7a7670; --rule: rgba(13,13,15,0.12);
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'DM Sans', sans-serif; background: var(--paper); color: var(--ink); overflow-x: hidden; }
+
+  header {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    background: var(--cobalt); border-bottom: 3px solid var(--gold);
+    padding: 0 3rem; display: flex; align-items: center; justify-content: space-between; height: 64px;
+  }
+  .logo {
+    font-family: 'Playfair Display', serif; font-weight: 900; font-size: 1.15rem;
+    color: var(--gold); letter-spacing: 0.04em; text-decoration: none;
+    display: flex; align-items: center; gap: 0.55rem;
+  }
+  .logo-symbol { font-size: 1.45rem; line-height: 1; color: var(--gold-light); }
+  nav { display: flex; gap: 0.1rem; }
+  nav a {
+    font-family: 'DM Mono', monospace; font-size: 0.72rem; font-weight: 500;
+    color: rgba(255,255,255,0.7); text-decoration: none; padding: 0.4rem 0.85rem;
+    border-radius: 3px; letter-spacing: 0.07em; text-transform: uppercase;
+    transition: color 0.2s, background 0.2s;
+  }
+  nav a:hover, nav a.active { color: var(--gold); background: rgba(200,168,75,0.13); }
+
+  .page-body { padding-top: 64px; }
+
+  .section-inner { max-width: 1100px; margin: 0 auto; padding: 5rem 2rem; }
+  .section-label {
+    font-family: 'DM Mono', monospace; font-size: 0.68rem; font-weight: 500;
+    letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold);
+    margin-bottom: 1rem; display: flex; align-items: center; gap: 0.8rem;
+  }
+  .section-label::after { content: ''; flex: 1; height: 1px; background: linear-gradient(to right, var(--gold), transparent); max-width: 80px; }
+  .section-title {
+    font-family: 'Playfair Display', serif; font-size: clamp(2rem, 5vw, 3.2rem);
+    font-weight: 900; line-height: 1.1; letter-spacing: -0.02em; color: var(--cobalt); margin-bottom: 0.5rem;
+  }
+  .section-desc { font-size: 1rem; font-weight: 300; line-height: 1.8; color: var(--muted); max-width: 520px; margin-bottom: 3rem; }
+  .rule-divider { border: none; height: 1px; background: linear-gradient(to right, transparent, var(--rule), transparent); margin: 1rem 0 2.5rem; }
+
+  .stat-card { border: 1px solid var(--rule); border-top: 3px solid var(--gold); padding: 1.5rem; background: #fff; border-radius: 2px; }
+  .stat-num { font-family: 'Playfair Display', serif; font-size: 2.8rem; font-weight: 900; color: var(--cobalt); line-height: 1; }
+  .stat-label { font-family: 'DM Mono', monospace; font-size: 0.68rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); margin-top: 0.3rem; }
+
+  .comp-badge { display: inline-block; font-family: 'DM Mono', monospace; font-size: 0.62rem; letter-spacing: 0.1em; text-transform: uppercase; padding: 0.25rem 0.6rem; border-radius: 2px; font-weight: 500; }
+  .badge-upcoming { background: rgba(26,42,110,0.1); color: var(--cobalt-mid); }
+  .badge-past { background: rgba(122,118,112,0.12); color: var(--muted); }
+  .badge-soon { background: rgba(200,168,75,0.18); color: #8a6e1a; }
+
+  footer { background: var(--ink); padding: 2rem 3rem; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem; }
+  .footer-logo { font-family: 'Playfair Display', serif; font-size: 0.95rem; font-weight: 700; color: var(--gold); }
+  .footer-links { display: flex; gap: 1.5rem; }
+  .footer-links a { font-family: 'DM Mono', monospace; font-size: 0.68rem; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(255,255,255,0.3); text-decoration: none; transition: color 0.2s; }
+  .footer-links a:hover { color: var(--gold); }
+  .footer-copy { font-family: 'DM Mono', monospace; font-size: 0.65rem; color: rgba(255,255,255,0.2); letter-spacing: 0.06em; width: 100%; margin-top: 0.4rem; }
+
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+  @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-12px); } }
+
+  @media (max-width: 768px) {
+    header { padding: 0 1rem; }
+    nav a { padding: 0.3rem 0.45rem; font-size: 0.62rem; }
+    footer { flex-direction: column; align-items: flex-start; }
+  }
+
+  /* HERO BANNER */
+  .hero-banner {
+    background: var(--cobalt);
+    padding: 4rem 2rem 3.5rem;
+    text-align: center;
+    position: relative; overflow: hidden;
+  }
+  .hero-banner::before {
+    content: 'μ';
+    position: absolute; right: -1rem; bottom: -2rem;
+    font-family: 'Playfair Display', serif; font-size: 18rem; font-weight: 900;
+    color: rgba(255,255,255,0.03); line-height: 1; pointer-events: none;
+  }
+  .hero-school {
+    font-family: 'DM Mono', monospace; font-size: 0.72rem; font-weight: 500;
+    letter-spacing: 0.22em; text-transform: uppercase;
+    color: var(--gold); margin-bottom: 1rem;
+    animation: fadeUp 0.6s ease both;
+  }
+  .hero-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.4rem, 6vw, 4.5rem); font-weight: 900; line-height: 1;
+    color: #fff; letter-spacing: -0.02em;
+    animation: fadeUp 0.6s 0.08s ease both;
+  }
+  .hero-title span { color: var(--gold); }
+  .hero-tagline {
+    font-size: 0.95rem; font-weight: 300; color: rgba(255,255,255,0.5);
+    margin-top: 1rem; line-height: 1.7;
+    animation: fadeUp 0.6s 0.16s ease both;
+  }
+  .hero-meta {
+    display: flex; align-items: center; justify-content: center; gap: 1.5rem;
+    margin-top: 1.8rem; flex-wrap: wrap;
+    animation: fadeUp 0.6s 0.22s ease both;
+  }
+  .hero-meta-item {
+    font-family: 'DM Mono', monospace; font-size: 0.68rem;
+    letter-spacing: 0.12em; text-transform: uppercase;
+    color: rgba(255,255,255,0.35);
+    display: flex; align-items: center; gap: 0.5rem;
+  }
+  .hero-meta-item::before { content: '·'; color: var(--gold); font-size: 1.1rem; }
+  .hero-meta-item:first-child::before { display: none; }
+
+  /* NAV CARDS */
+  .nav-cards-wrap { max-width: 1100px; margin: 0 auto; padding: 3.5rem 2rem 4rem; }
+  .nav-cards-label {
+    font-family: 'DM Mono', monospace; font-size: 0.68rem; letter-spacing: 0.2em;
+    text-transform: uppercase; color: var(--muted); margin-bottom: 1.5rem;
+  }
+  .nav-cards { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; }
+  .nav-card {
+    background: #fff; border: 1px solid var(--rule); border-top: 3px solid var(--cobalt);
+    border-radius: 4px; padding: 1.6rem 1.4rem; text-decoration: none;
+    transition: transform 0.2s, box-shadow 0.2s, border-top-color 0.2s; display: block;
+  }
+  .nav-card:hover { transform: translateY(-4px); box-shadow: 0 10px 32px rgba(26,42,110,0.1); border-top-color: var(--gold); }
+  .nav-card-label { font-family: 'DM Mono', monospace; font-size: 0.63rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--gold); margin-bottom: 0.5rem; }
+  .nav-card-title { font-family: 'Playfair Display', serif; font-size: 1.2rem; font-weight: 700; color: var(--cobalt); margin-bottom: 0.4rem; }
+  .nav-card-desc { font-size: 0.8rem; color: var(--muted); line-height: 1.6; }
+  .nav-card-arrow { font-family: 'DM Mono', monospace; font-size: 0.7rem; color: var(--gold); margin-top: 1rem; display: block; }
+  @media (max-width: 900px) { .nav-cards { grid-template-columns: 1fr 1fr; } }
+  @media (max-width: 500px) { .nav-cards { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+<header>
+  <a href="index.html" class="logo"><span class="logo-symbol">μ</span>Mu Alpha Theta · SIS</a>
+  <nav><a href="index.html" class="active">About</a>
+    <a href="competitions.html">Competitions</a>
+    <a href="media.html">Media</a>
+    <a href="aisa.html">AISA</a>
+    <a href="piday.html">Pi Day</a>
+    </nav>
+</header>
+<div class="page-body">
+
+  <!-- HERO BANNER -->
+  <div class="hero-banner">
+    <div class="hero-school">Seoul International School</div>
+    <h1 class="hero-title">Mu Alpha <span>Theta</span></h1>
+    <p class="hero-tagline">National Mathematics Honor Society</p>
+    <div class="hero-meta">
+      <span class="hero-meta-item">50 Members</span>
+      <span class="hero-meta-item">9 Consecutive First Place Wins</span>
+      <span class="hero-meta-item">Room 116 · Friday Activity Period</span>
+    </div>
+  </div>
+
+  <!-- NAV CARDS -->
+  <div class="nav-cards-wrap">
+    <div class="nav-cards-label">Explore</div>
+    <div class="nav-cards">
+      <a href="competitions.html" class="nav-card">
+        <div class="nav-card-label">Schedule</div>
+        <div class="nav-card-title">Competitions</div>
+        <div class="nav-card-desc">Dates, formats, and registration for every competition this year.</div>
+        <span class="nav-card-arrow">View calendar →</span>
+      </a>
+      <a href="media.html" class="nav-card">
+        <div class="nav-card-label">Gallery</div>
+        <div class="nav-card-title">Photos &amp; Videos</div>
+        <div class="nav-card-desc">Photos and video highlights from meetings, competitions, and events.</div>
+        <span class="nav-card-arrow">Browse media →</span>
+      </a>
+      <a href="aisa.html" class="nav-card">
+        <div class="nav-card-label">Tournament</div>
+        <div class="nav-card-title">AISA 2026</div>
+        <div class="nav-card-desc">Results and photos from this year's AISA Math Tournament.</div>
+        <span class="nav-card-arrow">See results →</span>
+      </a>
+      <a href="piday.html" class="nav-card" style="border-top-color:var(--gold)">
+        <div class="nav-card-label">March 14</div>
+        <div class="nav-card-title">Pi Day</div>
+        <div class="nav-card-desc">Upload and browse photos and videos from Pi Day celebrations.</div>
+        <span class="nav-card-arrow">Go to Pi Day →</span>
+      </a>
+    </div>
+  </div>
+
+</div>
+<footer>
+  <div class="footer-logo">μ Mu Alpha Theta — Seoul International School</div>
+  <div class="footer-links">
+    <a href="index.html">About</a>
+    <a href="competitions.html">Competitions</a>
+    <a href="media.html">Media</a>
+    <a href="aisa.html">AISA</a>
+    <a href="piday.html">Pi Day</a>
+  </div>
+  <div class="footer-copy">© 2026 Seoul International School Mu Alpha Theta · Room 116 · Friday Activity Period</div>
+</footer>
+</body>
+</html>

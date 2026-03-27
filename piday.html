@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pi Day — Mu Alpha Theta SIS</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=DM+Mono:wght@300;400;500&family=DM+Sans:wght@300;400;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #0d0d0f; --paper: #f5f2eb; --gold: #c8a84b; --gold-light: #e8d08a;
+    --cobalt: #1a2a6e; --cobalt-mid: #2d4499; --cream: #faf8f2;
+    --muted: #7a7670; --rule: rgba(13,13,15,0.12);
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'DM Sans', sans-serif; background: var(--paper); color: var(--ink); overflow-x: hidden; }
+
+  header {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    background: var(--cobalt); border-bottom: 3px solid var(--gold);
+    padding: 0 3rem; display: flex; align-items: center; justify-content: space-between; height: 64px;
+  }
+  .logo {
+    font-family: 'Playfair Display', serif; font-weight: 900; font-size: 1.15rem;
+    color: var(--gold); letter-spacing: 0.04em; text-decoration: none;
+    display: flex; align-items: center; gap: 0.55rem;
+  }
+  .logo-symbol { font-size: 1.45rem; line-height: 1; color: var(--gold-light); }
+  nav { display: flex; gap: 0.1rem; }
+  nav a {
+    font-family: 'DM Mono', monospace; font-size: 0.72rem; font-weight: 500;
+    color: rgba(255,255,255,0.7); text-decoration: none; padding: 0.4rem 0.85rem;
+    border-radius: 3px; letter-spacing: 0.07em; text-transform: uppercase;
+    transition: color 0.2s, background 0.2s;
+  }
+  nav a:hover, nav a.active { color: var(--gold); background: rgba(200,168,75,0.13); }
+
+  .page-body { padding-top: 64px; }
+
+  .section-inner { max-width: 1100px; margin: 0 auto; padding: 5rem 2rem; }
+  .section-label {
+    font-family: 'DM Mono', monospace; font-size: 0.68rem; font-weight: 500;
+    letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold);
+    margin-bottom: 1rem; display: flex; align-items: center; gap: 0.8rem;
+  }
+  .section-label::after { content: ''; flex: 1; height: 1px; background: linear-gradient(to right, var(--gold), transparent); max-width: 80px; }
+  .section-title {
+    font-family: 'Playfair Display', serif; font-size: clamp(2rem, 5vw, 3.2rem);
+    font-weight: 900; line-height: 1.1; letter-spacing: -0.02em; color: var(--cobalt); margin-bottom: 0.5rem;
+  }
+  .section-desc { font-size: 1rem; font-weight: 300; line-height: 1.8; color: var(--muted); max-width: 520px; margin-bottom: 3rem; }
+  .rule-divider { border: none; height: 1px; background: linear-gradient(to right, transparent, var(--rule), transparent); margin: 1rem 0 2.5rem; }
+
+  .stat-card { border: 1px solid var(--rule); border-top: 3px solid var(--gold); padding: 1.5rem; background: #fff; border-radius: 2px; }
+  .stat-num { font-family: 'Playfair Display', serif; font-size: 2.8rem; font-weight: 900; color: var(--cobalt); line-height: 1; }
+  .stat-label { font-family: 'DM Mono', monospace; font-size: 0.68rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); margin-top: 0.3rem; }
+
+  .comp-badge { display: inline-block; font-family: 'DM Mono', monospace; font-size: 0.62rem; letter-spacing: 0.1em; text-transform: uppercase; padding: 0.25rem 0.6rem; border-radius: 2px; font-weight: 500; }
+  .badge-upcoming { background: rgba(26,42,110,0.1); color: var(--cobalt-mid); }
+  .badge-past { background: rgba(122,118,112,0.12); color: var(--muted); }
+  .badge-soon { background: rgba(200,168,75,0.18); color: #8a6e1a; }
+
+  footer { background: var(--ink); padding: 2rem 3rem; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem; }
+  .footer-logo { font-family: 'Playfair Display', serif; font-size: 0.95rem; font-weight: 700; color: var(--gold); }
+  .footer-links { display: flex; gap: 1.5rem; }
+  .footer-links a { font-family: 'DM Mono', monospace; font-size: 0.68rem; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(255,255,255,0.3); text-decoration: none; transition: color 0.2s; }
+  .footer-links a:hover { color: var(--gold); }
+  .footer-copy { font-family: 'DM Mono', monospace; font-size: 0.65rem; color: rgba(255,255,255,0.2); letter-spacing: 0.06em; width: 100%; margin-top: 0.4rem; }
+
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+  @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-12px); } }
+
+  @media (max-width: 768px) {
+    header { padding: 0 1rem; }
+    nav a { padding: 0.3rem 0.45rem; font-size: 0.62rem; }
+    footer { flex-direction: column; align-items: flex-start; }
+  }
+
+  .pi-upload-zone { border: 2px dashed rgba(26,42,110,0.25); border-radius: 6px; padding: 2.5rem; text-align: center; cursor: pointer; transition: border-color 0.2s, background 0.2s; margin-bottom: 1.5rem; position: relative; }
+  .pi-upload-zone:hover, .pi-upload-zone.dragover { border-color: var(--gold); background: rgba(200,168,75,0.05); }
+  .pi-upload-zone input { position: absolute; inset: 0; opacity: 0; cursor: pointer; width: 100%; height: 100%; }
+  .pi-upload-icon { font-size: 3rem; margin-bottom: 0.75rem; color: var(--cobalt); opacity: 0.4; }
+  .pi-upload-text { font-family: 'DM Mono', monospace; font-size: 0.78rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); }
+  .pi-upload-text strong { color: var(--cobalt); }
+  .pi-media-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(210px, 1fr)); gap: 1rem; }
+  .pi-media-item { border-radius: 4px; overflow: hidden; border: 1px solid var(--rule); position: relative; background: #fff; }
+  .pi-media-item img, .pi-media-item video { width: 100%; display: block; max-height: 180px; object-fit: cover; }
+  .pi-media-caption { padding: 0.6rem 0.8rem; font-size: 0.78rem; color: var(--muted); font-family: 'DM Mono', monospace; font-size: 0.68rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .pi-remove-btn { position: absolute; top: 0.4rem; right: 0.4rem; background: rgba(0,0,0,0.55); color: #fff; border: none; cursor: pointer; width: 26px; height: 26px; border-radius: 50%; font-size: 0.85rem; display: flex; align-items: center; justify-content: center; transition: background 0.15s; }
+  .pi-remove-btn:hover { background: rgba(180,40,40,0.85); }
+  .pi-empty { font-family: 'DM Mono', monospace; font-size: 0.78rem; color: var(--muted); letter-spacing: 0.1em; padding: 1rem 0; }
+</style>
+</head>
+<body>
+<header>
+  <a href="index.html" class="logo"><span class="logo-symbol">μ</span>Mu Alpha Theta · SIS</a>
+  <nav><a href="index.html">About</a>
+    <a href="competitions.html">Competitions</a>
+    <a href="media.html">Media</a>
+    <a href="aisa.html">AISA</a>
+    <a href="piday.html" class="active">Pi Day</a>
+    </nav>
+</header>
+<div class="page-body">
+
+<div class="section-inner">
+  <div class="section-label">March 14</div>
+  <h1 class="section-title">Pi Day</h1>
+  <p class="section-desc">Upload photos and videos from Pi Day celebrations. Media is stored in your browser until you clear it.</p>
+
+  <div class="pi-upload-zone" id="piDropZone">
+    <input type="file" id="piFileInput" accept="image/*,video/*" multiple onchange="handlePiFiles(this.files)">
+    <div class="pi-upload-icon">π</div>
+    <div class="pi-upload-text"><strong>Click to upload</strong> or drag &amp; drop<br>Images and videos accepted</div>
+  </div>
+
+  <div class="pi-media-grid" id="piMediaGrid">
+    <div class="pi-empty" id="piEmpty">No media yet — upload something above.</div>
+  </div>
+</div>
+
+<script>
+const piItems = [];
+function handlePiFiles(files) {
+  Array.from(files).forEach(file => piItems.push({ url: URL.createObjectURL(file), type: file.type, name: file.name }));
+  renderPi();
+}
+function renderPi() {
+  const grid = document.getElementById('piMediaGrid');
+  const empty = document.getElementById('piEmpty');
+  if (!piItems.length) { empty.style.display = ''; grid.innerHTML = ''; grid.appendChild(empty); return; }
+  empty.style.display = 'none';
+  grid.innerHTML = '';
+  piItems.forEach((item, i) => {
+    const d = document.createElement('div'); d.className = 'pi-media-item';
+    const isVideo = item.type.startsWith('video');
+    d.innerHTML = (isVideo ? `<video src="${item.url}" controls></video>` : `<img src="${item.url}" alt="">`)
+      + `<div class="pi-media-caption">${item.name}</div>`
+      + `<button class="pi-remove-btn" onclick="removePi(${i})">×</button>`;
+    grid.appendChild(d);
+  });
+}
+function removePi(i) { piItems.splice(i,1); renderPi(); }
+const dz = document.getElementById('piDropZone');
+dz.addEventListener('dragover', e => { e.preventDefault(); dz.classList.add('dragover'); });
+dz.addEventListener('dragleave', () => dz.classList.remove('dragover'));
+dz.addEventListener('drop', e => { e.preventDefault(); dz.classList.remove('dragover'); handlePiFiles(e.dataTransfer.files); });
+</script>
+
+</div>
+<footer>
+  <div class="footer-logo">μ Mu Alpha Theta — Seoul International School</div>
+  <div class="footer-links">
+    <a href="index.html">About</a>
+    <a href="competitions.html">Competitions</a>
+    <a href="media.html">Media</a>
+    <a href="aisa.html">AISA</a>
+    <a href="piday.html">Pi Day</a>
+  </div>
+  <div class="footer-copy">© 2026 Seoul International School Mu Alpha Theta · Room 116 · Friday Activity Period</div>
+</footer>
+</body>
+</html>

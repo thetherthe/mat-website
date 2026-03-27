@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Media — Mu Alpha Theta SIS</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=DM+Mono:wght@300;400;500&family=DM+Sans:wght@300;400;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #0d0d0f; --paper: #f5f2eb; --gold: #c8a84b; --gold-light: #e8d08a;
+    --cobalt: #1a2a6e; --cobalt-mid: #2d4499; --cream: #faf8f2;
+    --muted: #7a7670; --rule: rgba(13,13,15,0.12);
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'DM Sans', sans-serif; background: var(--paper); color: var(--ink); overflow-x: hidden; }
+
+  header {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    background: var(--cobalt); border-bottom: 3px solid var(--gold);
+    padding: 0 3rem; display: flex; align-items: center; justify-content: space-between; height: 64px;
+  }
+  .logo {
+    font-family: 'Playfair Display', serif; font-weight: 900; font-size: 1.15rem;
+    color: var(--gold); letter-spacing: 0.04em; text-decoration: none;
+    display: flex; align-items: center; gap: 0.55rem;
+  }
+  .logo-symbol { font-size: 1.45rem; line-height: 1; color: var(--gold-light); }
+  nav { display: flex; gap: 0.1rem; }
+  nav a {
+    font-family: 'DM Mono', monospace; font-size: 0.72rem; font-weight: 500;
+    color: rgba(255,255,255,0.7); text-decoration: none; padding: 0.4rem 0.85rem;
+    border-radius: 3px; letter-spacing: 0.07em; text-transform: uppercase;
+    transition: color 0.2s, background 0.2s;
+  }
+  nav a:hover, nav a.active { color: var(--gold); background: rgba(200,168,75,0.13); }
+
+  .page-body { padding-top: 64px; }
+
+  .section-inner { max-width: 1100px; margin: 0 auto; padding: 5rem 2rem; }
+  .section-label {
+    font-family: 'DM Mono', monospace; font-size: 0.68rem; font-weight: 500;
+    letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold);
+    margin-bottom: 1rem; display: flex; align-items: center; gap: 0.8rem;
+  }
+  .section-label::after { content: ''; flex: 1; height: 1px; background: linear-gradient(to right, var(--gold), transparent); max-width: 80px; }
+  .section-title {
+    font-family: 'Playfair Display', serif; font-size: clamp(2rem, 5vw, 3.2rem);
+    font-weight: 900; line-height: 1.1; letter-spacing: -0.02em; color: var(--cobalt); margin-bottom: 0.5rem;
+  }
+  .section-desc { font-size: 1rem; font-weight: 300; line-height: 1.8; color: var(--muted); max-width: 520px; margin-bottom: 3rem; }
+  .rule-divider { border: none; height: 1px; background: linear-gradient(to right, transparent, var(--rule), transparent); margin: 1rem 0 2.5rem; }
+
+  .stat-card { border: 1px solid var(--rule); border-top: 3px solid var(--gold); padding: 1.5rem; background: #fff; border-radius: 2px; }
+  .stat-num { font-family: 'Playfair Display', serif; font-size: 2.8rem; font-weight: 900; color: var(--cobalt); line-height: 1; }
+  .stat-label { font-family: 'DM Mono', monospace; font-size: 0.68rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); margin-top: 0.3rem; }
+
+  .comp-badge { display: inline-block; font-family: 'DM Mono', monospace; font-size: 0.62rem; letter-spacing: 0.1em; text-transform: uppercase; padding: 0.25rem 0.6rem; border-radius: 2px; font-weight: 500; }
+  .badge-upcoming { background: rgba(26,42,110,0.1); color: var(--cobalt-mid); }
+  .badge-past { background: rgba(122,118,112,0.12); color: var(--muted); }
+  .badge-soon { background: rgba(200,168,75,0.18); color: #8a6e1a; }
+
+  footer { background: var(--ink); padding: 2rem 3rem; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem; }
+  .footer-logo { font-family: 'Playfair Display', serif; font-size: 0.95rem; font-weight: 700; color: var(--gold); }
+  .footer-links { display: flex; gap: 1.5rem; }
+  .footer-links a { font-family: 'DM Mono', monospace; font-size: 0.68rem; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(255,255,255,0.3); text-decoration: none; transition: color 0.2s; }
+  .footer-links a:hover { color: var(--gold); }
+  .footer-copy { font-family: 'DM Mono', monospace; font-size: 0.65rem; color: rgba(255,255,255,0.2); letter-spacing: 0.06em; width: 100%; margin-top: 0.4rem; }
+
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+  @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-12px); } }
+
+  @media (max-width: 768px) {
+    header { padding: 0 1rem; }
+    nav a { padding: 0.3rem 0.45rem; font-size: 0.62rem; }
+    footer { flex-direction: column; align-items: flex-start; }
+  }
+
+  .media-tabs { display: flex; border: 1px solid var(--rule); border-radius: 3px; overflow: hidden; width: fit-content; margin-bottom: 2rem; }
+  .tab-btn { font-family: 'DM Mono', monospace; font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase; background: transparent; color: var(--muted); border: none; cursor: pointer; padding: 0.65rem 1.4rem; transition: background 0.2s, color 0.2s; }
+  .tab-btn.active, .tab-btn:hover { background: rgba(26,42,110,0.08); color: var(--cobalt); }
+  .media-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 1.25rem; }
+  .media-card { border-radius: 4px; overflow: hidden; background: #fff; border: 1px solid var(--rule); transition: transform 0.2s, box-shadow 0.2s; cursor: pointer; }
+  .media-card:hover { transform: translateY(-4px); box-shadow: 0 10px 32px rgba(26,42,110,0.1); }
+  .media-thumb { aspect-ratio: 16/10; background: var(--cobalt); display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden; }
+  .media-thumb-icon { font-size: 2.5rem; opacity: 0.2; }
+  .media-thumb-label { font-family: 'Playfair Display', serif; font-size: 1.1rem; font-weight: 700; color: rgba(200,168,75,0.7); z-index: 1; text-align: center; padding: 1rem; position: absolute; }
+  .play-btn { position: absolute; width: 44px; height: 44px; background: var(--gold); border-radius: 50%; display: flex; align-items: center; justify-content: center; z-index: 2; }
+  .play-btn::after { content: ''; border-left: 14px solid var(--cobalt); border-top: 9px solid transparent; border-bottom: 9px solid transparent; margin-left: 3px; }
+  .media-info { padding: 1rem 1.2rem; }
+  .media-info-title { font-size: 0.88rem; font-weight: 600; color: var(--ink); margin-bottom: 0.25rem; }
+  .media-info-meta { font-family: 'DM Mono', monospace; font-size: 0.68rem; letter-spacing: 0.06em; color: var(--muted); }
+</style>
+</head>
+<body>
+<header>
+  <a href="index.html" class="logo"><span class="logo-symbol">μ</span>Mu Alpha Theta · SIS</a>
+  <nav><a href="index.html">About</a>
+    <a href="competitions.html">Competitions</a>
+    <a href="media.html" class="active">Media</a>
+    <a href="aisa.html">AISA</a>
+    <a href="piday.html">Pi Day</a>
+    </nav>
+</header>
+<div class="page-body">
+
+<div class="section-inner">
+  <div class="section-label">Photos &amp; Videos</div>
+  <h1 class="section-title">Club Media</h1>
+  <p class="section-desc">Moments from competitions, meetings, and events throughout the year.</p>
+
+  <div class="media-tabs">
+    <button class="tab-btn active" onclick="setTab('all',this)">All</button>
+    <button class="tab-btn" onclick="setTab('photos',this)">Photos</button>
+    <button class="tab-btn" onclick="setTab('videos',this)">Videos</button>
+  </div>
+
+  <div class="media-grid" id="mediaGrid">
+    <div class="media-card" data-type="photos">
+      <div class="media-thumb"><span class="media-thumb-icon">🏆</span><div class="media-thumb-label">AISA 2026</div></div>
+      <div class="media-info"><div class="media-info-title">AISA — Competition Photos</div><div class="media-info-meta">Jan 2026 · 30 photos</div></div>
+    </div>
+    <div class="media-card" data-type="videos">
+      <div class="media-thumb"><span class="media-thumb-icon">🎬</span><div class="play-btn"></div><div class="media-thumb-label">NEAMC Recap</div></div>
+      <div class="media-info"><div class="media-info-title">NEAMC Junior Highlights</div><div class="media-info-meta">Nov 2025 · 4 min video</div></div>
+    </div>
+    <div class="media-card" data-type="photos">
+      <div class="media-thumb"><span class="media-thumb-icon">📐</span><div class="media-thumb-label">Fall Meetings '25</div></div>
+      <div class="media-info"><div class="media-info-title">Fall Semester Meetings</div><div class="media-info-meta">Sep–Dec 2025 · 38 photos</div></div>
+    </div>
+    <div class="media-card" data-type="videos">
+      <div class="media-thumb"><span class="media-thumb-icon">∫</span><div class="play-btn"></div><div class="media-thumb-label">Calculus Workshop</div></div>
+      <div class="media-info"><div class="media-info-title">Integration Techniques Deep Dive</div><div class="media-info-meta">Sep 2025 · 32 min</div></div>
+    </div>
+    <div class="media-card" data-type="photos">
+      <div class="media-thumb"><span class="media-thumb-icon">🎗️</span><div class="media-thumb-label">Induction Night</div></div>
+      <div class="media-info"><div class="media-info-title">New Member Induction 2025</div><div class="media-info-meta">Oct 2025 · 17 photos</div></div>
+    </div>
+    <div class="media-card" data-type="videos">
+      <div class="media-thumb"><span class="media-thumb-icon">🎙️</span><div class="play-btn"></div><div class="media-thumb-label">Problem Walkthrough</div></div>
+      <div class="media-info"><div class="media-info-title">Weekly: Combinatorics</div><div class="media-info-meta">Nov 2025 · 18 min</div></div>
+    </div>
+  </div>
+</div>
+<script>
+function setTab(type, btn) {
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  document.querySelectorAll('#mediaGrid .media-card').forEach(c => {
+    c.style.display = (type === 'all' || c.dataset.type === type) ? '' : 'none';
+  });
+}
+</script>
+
+</div>
+<footer>
+  <div class="footer-logo">μ Mu Alpha Theta — Seoul International School</div>
+  <div class="footer-links">
+    <a href="index.html">About</a>
+    <a href="competitions.html">Competitions</a>
+    <a href="media.html">Media</a>
+    <a href="aisa.html">AISA</a>
+    <a href="piday.html">Pi Day</a>
+  </div>
+  <div class="footer-copy">© 2026 Seoul International School Mu Alpha Theta · Room 116 · Friday Activity Period</div>
+</footer>
+</body>
+</html>

@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Competitions — Mu Alpha Theta SIS</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=DM+Mono:wght@300;400;500&family=DM+Sans:wght@300;400;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #0d0d0f; --paper: #f5f2eb; --gold: #c8a84b; --gold-light: #e8d08a;
+    --cobalt: #1a2a6e; --cobalt-mid: #2d4499; --cream: #faf8f2;
+    --muted: #7a7670; --rule: rgba(13,13,15,0.12);
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'DM Sans', sans-serif; background: var(--paper); color: var(--ink); overflow-x: hidden; }
+
+  header {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    background: var(--cobalt); border-bottom: 3px solid var(--gold);
+    padding: 0 3rem; display: flex; align-items: center; justify-content: space-between; height: 64px;
+  }
+  .logo {
+    font-family: 'Playfair Display', serif; font-weight: 900; font-size: 1.15rem;
+    color: var(--gold); letter-spacing: 0.04em; text-decoration: none;
+    display: flex; align-items: center; gap: 0.55rem;
+  }
+  .logo-symbol { font-size: 1.45rem; line-height: 1; color: var(--gold-light); }
+  nav { display: flex; gap: 0.1rem; }
+  nav a {
+    font-family: 'DM Mono', monospace; font-size: 0.72rem; font-weight: 500;
+    color: rgba(255,255,255,0.7); text-decoration: none; padding: 0.4rem 0.85rem;
+    border-radius: 3px; letter-spacing: 0.07em; text-transform: uppercase;
+    transition: color 0.2s, background 0.2s;
+  }
+  nav a:hover, nav a.active { color: var(--gold); background: rgba(200,168,75,0.13); }
+
+  .page-body { padding-top: 64px; }
+
+  .section-inner { max-width: 1100px; margin: 0 auto; padding: 5rem 2rem; }
+  .section-label {
+    font-family: 'DM Mono', monospace; font-size: 0.68rem; font-weight: 500;
+    letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold);
+    margin-bottom: 1rem; display: flex; align-items: center; gap: 0.8rem;
+  }
+  .section-label::after { content: ''; flex: 1; height: 1px; background: linear-gradient(to right, var(--gold), transparent); max-width: 80px; }
+  .section-title {
+    font-family: 'Playfair Display', serif; font-size: clamp(2rem, 5vw, 3.2rem);
+    font-weight: 900; line-height: 1.1; letter-spacing: -0.02em; color: var(--cobalt); margin-bottom: 0.5rem;
+  }
+  .section-desc { font-size: 1rem; font-weight: 300; line-height: 1.8; color: var(--muted); max-width: 520px; margin-bottom: 3rem; }
+  .rule-divider { border: none; height: 1px; background: linear-gradient(to right, transparent, var(--rule), transparent); margin: 1rem 0 2.5rem; }
+
+  .stat-card { border: 1px solid var(--rule); border-top: 3px solid var(--gold); padding: 1.5rem; background: #fff; border-radius: 2px; }
+  .stat-num { font-family: 'Playfair Display', serif; font-size: 2.8rem; font-weight: 900; color: var(--cobalt); line-height: 1; }
+  .stat-label { font-family: 'DM Mono', monospace; font-size: 0.68rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); margin-top: 0.3rem; }
+
+  .comp-badge { display: inline-block; font-family: 'DM Mono', monospace; font-size: 0.62rem; letter-spacing: 0.1em; text-transform: uppercase; padding: 0.25rem 0.6rem; border-radius: 2px; font-weight: 500; }
+  .badge-upcoming { background: rgba(26,42,110,0.1); color: var(--cobalt-mid); }
+  .badge-past { background: rgba(122,118,112,0.12); color: var(--muted); }
+  .badge-soon { background: rgba(200,168,75,0.18); color: #8a6e1a; }
+
+  footer { background: var(--ink); padding: 2rem 3rem; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem; }
+  .footer-logo { font-family: 'Playfair Display', serif; font-size: 0.95rem; font-weight: 700; color: var(--gold); }
+  .footer-links { display: flex; gap: 1.5rem; }
+  .footer-links a { font-family: 'DM Mono', monospace; font-size: 0.68rem; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(255,255,255,0.3); text-decoration: none; transition: color 0.2s; }
+  .footer-links a:hover { color: var(--gold); }
+  .footer-copy { font-family: 'DM Mono', monospace; font-size: 0.65rem; color: rgba(255,255,255,0.2); letter-spacing: 0.06em; width: 100%; margin-top: 0.4rem; }
+
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+  @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-12px); } }
+
+  @media (max-width: 768px) {
+    header { padding: 0 1rem; }
+    nav a { padding: 0.3rem 0.45rem; font-size: 0.62rem; }
+    footer { flex-direction: column; align-items: flex-start; }
+  }
+
+  .comp-table-wrap { border: 1px solid var(--rule); border-radius: 4px; overflow: hidden; background: #fff; box-shadow: 0 2px 24px rgba(13,13,15,0.06); }
+  .comp-table-header { background: var(--cobalt); display: grid; grid-template-columns: 1.1fr 1.8fr 0.9fr 0.7fr 0.8fr 0.7fr; padding: 0.9rem 1.5rem; gap: 1rem; }
+  .comp-table-header span { font-family: 'DM Mono', monospace; font-size: 0.65rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--gold-light); }
+  .comp-row { border-bottom: 1px solid var(--rule); cursor: pointer; }
+  .comp-row:last-child { border-bottom: none; }
+  .comp-row-main { display: grid; grid-template-columns: 1.1fr 1.8fr 0.9fr 0.7fr 0.8fr 0.7fr; padding: 1.1rem 1.5rem; gap: 1rem; align-items: center; transition: background 0.15s; }
+  .comp-row:hover .comp-row-main { background: rgba(26,42,110,0.04); }
+  .comp-date { font-family: 'DM Mono', monospace; font-size: 0.8rem; color: var(--cobalt); font-weight: 500; }
+  .comp-name { font-size: 0.92rem; font-weight: 600; color: var(--ink); }
+  .comp-name small { display: block; font-size: 0.75rem; font-weight: 300; color: var(--muted); margin-top: 0.15rem; }
+  .comp-length, .comp-cost { font-family: 'DM Mono', monospace; font-size: 0.78rem; color: var(--muted); }
+  .comp-reg a { font-family: 'DM Mono', monospace; font-size: 0.72rem; font-weight: 500; letter-spacing: 0.06em; color: var(--gold); text-decoration: none; border-bottom: 1px solid rgba(200,168,75,0.3); transition: border-color 0.2s; }
+  .comp-reg a:hover { border-color: var(--gold); }
+  .comp-dropdown { max-height: 0; overflow: hidden; transition: max-height 0.4s ease; background: linear-gradient(to right, rgba(26,42,110,0.04), transparent); }
+  .comp-dropdown.open { max-height: 200px; border-top: 1px solid var(--rule); }
+  .comp-dropdown-inner { padding: 1.2rem 1.5rem 1.2rem 2.5rem; }
+  .comp-dropdown-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.2rem; }
+  .comp-dd-block dt { font-family: 'DM Mono', monospace; font-size: 0.62rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--gold); margin-bottom: 0.3rem; }
+  .comp-dd-block dd { font-size: 0.85rem; line-height: 1.6; color: var(--ink); }
+  @media (max-width: 768px) {
+    .comp-table-header, .comp-row-main { grid-template-columns: 1fr 1.5fr 1fr; }
+    .comp-table-header span:nth-child(3), .comp-table-header span:nth-child(4), .comp-table-header span:nth-child(5),
+    .comp-length, .comp-cost { display: none; }
+  }
+</style>
+</head>
+<body>
+<header>
+  <a href="index.html" class="logo"><span class="logo-symbol">μ</span>Mu Alpha Theta · SIS</a>
+  <nav><a href="index.html">About</a>
+    <a href="competitions.html" class="active">Competitions</a>
+    <a href="media.html">Media</a>
+    <a href="aisa.html">AISA</a>
+    <a href="piday.html">Pi Day</a>
+    </nav>
+</header>
+<div class="page-body">
+
+<div class="section-inner">
+  <div class="section-label">Upcoming &amp; Past</div>
+  <h1 class="section-title">Competition Calendar</h1>
+  <p class="section-desc">Click any row to see format and topic details.</p>
+
+  <div class="comp-table-wrap">
+    <div class="comp-table-header">
+      <span>Date</span><span>Competition</span><span>Length</span><span>Cost</span><span>Status</span><span>Link</span>
+    </div>
+
+    <div class="comp-row" onclick="toggleComp(this)">
+      <div class="comp-row-main">
+        <div class="comp-date">11/15/2025<br><small style="color:var(--muted);font-size:0.7rem">In-person</small></div>
+        <div class="comp-name">NEAMC (Junior)<small>Northeast Asia Math Competition</small></div>
+        <div class="comp-length">2 days</div><div class="comp-cost">$225</div>
+        <div><span class="comp-badge badge-past">Completed</span></div>
+        <div class="comp-reg"><a href="#" onclick="event.stopPropagation()">Register →</a></div>
+      </div>
+      <div class="comp-dropdown"><div class="comp-dropdown-inner"><div class="comp-dropdown-grid">
+        <dl class="comp-dd-block"><dt>Format</dt><dd>9 events — 3 individual, 3 intra-school team, 3 inter-school team. Mix of digital, paper, MCQ, free response, and other formats.</dd></dl>
+        <dl class="comp-dd-block"><dt>Topics</dt><dd>Algebra, geometry, trigonometry, calculus, number theory, pattern recognition</dd></dl>
+      </div></div></div>
+    </div>
+
+    <div class="comp-row" onclick="toggleComp(this)">
+      <div class="comp-row-main">
+        <div class="comp-date">11/7–11/9</div>
+        <div class="comp-name">HiMCM<small>High School Math Contest in Modeling</small></div>
+        <div class="comp-length">3 days</div><div class="comp-cost">₩35,000</div>
+        <div><span class="comp-badge badge-past">Completed</span></div>
+        <div class="comp-reg"><a href="#" onclick="event.stopPropagation()">Website →</a></div>
+      </div>
+      <div class="comp-dropdown"><div class="comp-dropdown-inner"><div class="comp-dropdown-grid">
+        <dl class="comp-dd-block"><dt>Format</dt><dd>Teams of 3 write a 25-page paper justifying a mathematical model to understand an authentic real-world problem.</dd></dl>
+        <dl class="comp-dd-block"><dt>Topics</dt><dd>Statistical analysis, differential equations, numeric methods, programming — many approaches valid.</dd></dl>
+      </div></div></div>
+    </div>
+
+    <div class="comp-row" onclick="toggleComp(this)">
+      <div class="comp-row-main">
+        <div class="comp-date">10/30/2025</div>
+        <div class="comp-name">COMC<small>Canadian Open Mathematics Competition</small></div>
+        <div class="comp-length">2.5 hours</div><div class="comp-cost">—</div>
+        <div><span class="comp-badge badge-past">Completed</span></div>
+        <div class="comp-reg"><a href="#" onclick="event.stopPropagation()">Website →</a></div>
+      </div>
+      <div class="comp-dropdown"><div class="comp-dropdown-inner"><div class="comp-dropdown-grid">
+        <dl class="comp-dd-block"><dt>Format</dt><dd>Free response questions — some answer-only, some require full written solutions.</dd></dl>
+        <dl class="comp-dd-block"><dt>Topics</dt><dd>Number theory, geometry, algebra, probability</dd></dl>
+      </div></div></div>
+    </div>
+
+    <div class="comp-row" onclick="toggleComp(this)">
+      <div class="comp-row-main">
+        <div class="comp-date">1/30/2026</div>
+        <div class="comp-name">AISA<small>Association of International Schools in Asia</small></div>
+        <div class="comp-length">4 days</div><div class="comp-cost">₩700,000</div>
+        <div><span class="comp-badge badge-past">Completed</span></div>
+        <div class="comp-reg"><a href="aisa.html" onclick="event.stopPropagation()">Results →</a></div>
+      </div>
+      <div class="comp-dropdown"><div class="comp-dropdown-inner"><div class="comp-dropdown-grid">
+        <dl class="comp-dd-block"><dt>Format</dt><dd>Several events, some team and some individual. Format and style can vary by host school. Invitational entry.</dd></dl>
+        <dl class="comp-dd-block"><dt>Topics</dt><dd>Vary year-by-year but often involve problems similar to AMC, AIME, and other major competitions.</dd></dl>
+      </div></div></div>
+    </div>
+
+    <div class="comp-row" onclick="toggleComp(this)">
+      <div class="comp-row-main">
+        <div class="comp-date">2/26/2026</div>
+        <div class="comp-name">CEMC (MCQ)<small>Centre for Education in Mathematics &amp; Computing</small></div>
+        <div class="comp-length">1 hour</div><div class="comp-cost">Free</div>
+        <div><span class="comp-badge badge-past">Completed</span></div>
+        <div class="comp-reg"><span style="font-family:'DM Mono',monospace;font-size:0.72rem;color:var(--muted)">Mandatory</span></div>
+      </div>
+      <div class="comp-dropdown"><div class="comp-dropdown-inner"><div class="comp-dropdown-grid">
+        <dl class="comp-dd-block"><dt>Format</dt><dd>Multiple choice questions only.</dd></dl>
+        <dl class="comp-dd-block"><dt>Topics</dt><dd>Number theory, geometry, algebra, probability</dd></dl>
+      </div></div></div>
+    </div>
+
+    <div class="comp-row" onclick="toggleComp(this)">
+      <div class="comp-row-main">
+        <div class="comp-date">4/16/2026</div>
+        <div class="comp-name">Purple Comet<small>Online Team Math Competition</small></div>
+        <div class="comp-length">1.5 hours</div><div class="comp-cost">₩5,000</div>
+        <div><span class="comp-badge badge-soon">Upcoming</span></div>
+        <div class="comp-reg"><a href="#" onclick="event.stopPropagation()">Register →</a></div>
+      </div>
+      <div class="comp-dropdown"><div class="comp-dropdown-inner"><div class="comp-dropdown-grid">
+        <dl class="comp-dd-block"><dt>Format</dt><dd>Team competition — answer-only responses submitted over the Internet. Deadline: 3/27/2026.</dd></dl>
+        <dl class="comp-dd-block"><dt>Topics</dt><dd>Number theory, algebra, trigonometry, probability, combinatorics</dd></dl>
+      </div></div></div>
+    </div>
+
+    <div class="comp-row" onclick="toggleComp(this)">
+      <div class="comp-row-main">
+        <div class="comp-date">5/30/2026<br><small style="color:var(--muted);font-size:0.7rem">In-person</small></div>
+        <div class="comp-name">NEAMC (Senior)<small>Northeast Asia Math Competition</small></div>
+        <div class="comp-length">2 days</div><div class="comp-cost">—</div>
+        <div><span class="comp-badge badge-upcoming">Upcoming</span></div>
+        <div class="comp-reg"><a href="#" onclick="event.stopPropagation()">Register →</a></div>
+      </div>
+      <div class="comp-dropdown"><div class="comp-dropdown-inner"><div class="comp-dropdown-grid">
+        <dl class="comp-dd-block"><dt>Format</dt><dd>9 events — 3 individual, 3 intra-school team, 3 inter-school team. Mix of digital, paper, MCQ, free response. Deadline: 4/10/2026.</dd></dl>
+        <dl class="comp-dd-block"><dt>Topics</dt><dd>Algebra, geometry, trigonometry, calculus, number theory, pattern recognition</dd></dl>
+      </div></div></div>
+    </div>
+
+  </div>
+</div>
+<script>
+function toggleComp(row) {
+  const dd = row.querySelector('.comp-dropdown');
+  const open = row.classList.contains('open');
+  document.querySelectorAll('.comp-row.open').forEach(r => { r.classList.remove('open'); r.querySelector('.comp-dropdown').classList.remove('open'); });
+  if (!open) { row.classList.add('open'); dd.classList.add('open'); }
+}
+</script>
+
+</div>
+<footer>
+  <div class="footer-logo">μ Mu Alpha Theta — Seoul International School</div>
+  <div class="footer-links">
+    <a href="index.html">About</a>
+    <a href="competitions.html">Competitions</a>
+    <a href="media.html">Media</a>
+    <a href="aisa.html">AISA</a>
+    <a href="piday.html">Pi Day</a>
+  </div>
+  <div class="footer-copy">© 2026 Seoul International School Mu Alpha Theta · Room 116 · Friday Activity Period</div>
+</footer>
+</body>
+</html>
